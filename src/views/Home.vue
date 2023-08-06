@@ -50,8 +50,15 @@ main {
     }
 
     @keyframes fade {
-        0% {opacity: 0; transform: scale(1.3);}
-        100% {opacity: 1; transform: scale(1);}
+        0% {
+            opacity: 0;
+            transform: scale(1.3);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     .header {
@@ -65,6 +72,7 @@ main {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            border-radius: 1rem;
             background-color: #353535;
             padding: 15px;
             font-weight: 700;
@@ -105,6 +113,7 @@ main {
                 right: 20px;
                 color: #b05500;
                 box-shadow: 0px 1px 20px rgb(35, 35, 35);
+                font-weight: 600;
             }
 
             .movie-details {

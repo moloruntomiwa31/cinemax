@@ -55,11 +55,11 @@ onMounted(() => {
 
     position: relative;
     border-radius: 50px;
-    border: 3px solid gray;
+    border: 1px solid gray;
     margin: 30px 0;
 
     h1 {
-        border-radius: 50%;
+        border-radius: 1rem;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -131,6 +131,7 @@ onMounted(() => {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
+                font-weight: bold;
             }
         }
 

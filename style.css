@@ -8,3 +8,7 @@ body {
     font-family: Syne;
     overflow-x: hidden;
 }
+.lightmode {
+    background-color: #756868;
+    color: #f78d1c;
+}
