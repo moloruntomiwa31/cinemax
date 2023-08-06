@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import PreLoader from '../components/Preloader.vue';
+import PreLoader from '../components/PreLoader.vue';
 import { useSearch } from '../store/search';
 const searchData = useSearch()
 import { ref, onMounted } from 'vue';

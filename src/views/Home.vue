@@ -24,7 +24,7 @@
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { usePopular } from "../store/popular.js"
-import PreLoader from "../components/Preloader.vue"
+import PreLoader from "../components/PreLoader.vue"
 const router = useRouter()
 const popularStore = usePopular()
 

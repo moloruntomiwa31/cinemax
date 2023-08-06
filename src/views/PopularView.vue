@@ -1,5 +1,5 @@
 <template>
-    <Preloader v-if="isLoading" />
+    <PreLoader v-if="isLoading" />
     <div class="popularMovies" v-else>
         <div class="movie" v-if="movieResult">
             <div class="movie-image">
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import Preloader from '../components/Preloader.vue';
+import PreLoader from '../components/PreLoader.vue';
 import { usePopular } from '../store/popular';
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
