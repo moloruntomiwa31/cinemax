@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    background-color: #353535;
+    font-family: Syne;
+    overflow-x: hidden;
+}
