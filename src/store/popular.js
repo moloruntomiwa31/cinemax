@@ -5,13 +5,19 @@ export const usePopular = defineStore("popularMovies", {
     state: () => ({
         result: [],
         moviesWithGenres: [],
-        isLoading: true
+        isLoading: true,
+        page: 1
     }),
     actions: {
         async getDetails() {
             try {
-                const url = "https://api.themoviedb.org/3/movie/popular?api_key=ffb2861fdbc1b2981352fc6e6d3e5c8a"
-                const res = await axios.get(url)
+                const url = "https://api.themoviedb.org/3/movie/popular"
+                const res = await axios.get(url, {
+                    params: {
+                        api_key: "ffb2861fdbc1b2981352fc6e6d3e5c8a",
+                        page: this.page
+                    }
+                })
                 const genres = await this.fetchGenre()
                 this.result = res.data.results
                 this.moviesWithGenres = this.result.map((movie) => ({

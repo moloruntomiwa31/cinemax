@@ -128,23 +128,10 @@ $screen-width-small: 768px;
             }
 
             .video {
-                margin: 10px 0;
-                width: 100%;
-                height: 100%;
-                box-shadow: 0px 1px 20px rgb(61, 61, 61);
-                height: fit-content;
                 position: relative;
-
+                
                 iframe {
-                    border-radius: 4px;
-                    width: 100%;
-                    height: 300px;
                     position: fixed;
-                    background: linear-gradient(to bottom,
-                            rgba(0, 0, 0, 0.6) 0%,
-                            rgba(0, 0, 0, 0.3) 50%,
-                            rgba(0, 0, 0, 0.6) 100%);
-                    ;
                     top: 0;
                     left: 0;
                     width: 100%;

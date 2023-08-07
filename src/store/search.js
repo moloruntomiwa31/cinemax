@@ -6,6 +6,7 @@ export const useSearch = defineStore("searchData", {
   state: () => ({
     movieInput: "",
     searchArray: [],
+    movieId: null,
     moviesWithGenres: [],
     isLoading: true
   }),
@@ -26,6 +27,12 @@ export const useSearch = defineStore("searchData", {
         const genres = await popularMovies.fetchGenre() 
         // data from this api request     
         this.searchArray = res.data.results;
+        // ------getting each movie id
+        this.movieId = this.searchArray.map(movie => movie.id)
+        console.log(this.movieId);
+        // -------catching runtime
+        // const movieruntime = await this.addMovieRuntime()
+        // console.log(movieruntime);
         //   -------
         this.moviesWithGenres = this.searchArray.map((movie) => ({
             ...movie,
@@ -38,6 +45,13 @@ export const useSearch = defineStore("searchData", {
     },
     setMovie(movieInput) {
       this.movieInput = movieInput;
-    }
+    },
+    // -----trying to get runtime
+    // async addMovieRuntime() {
+    //   for (id of this.movieId) {
+    //     const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=ffb2861fdbc1b2981352fc6e6d3e5c8a`)
+    //     console.log(res);
+    //   }
+    // }
   },
 });

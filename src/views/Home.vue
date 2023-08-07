@@ -12,12 +12,14 @@
                 <img :src="`https://image.tmdb.org/t/p/w500/` + movie.poster_path" alt="Movie Image">
                 <div class="movie-details">
                     <h1 class="title">{{ movie.title }}</h1>
+                    <p>{{ movie.runtime }}</p>
                     <p class="date font-bold">{{ movie.release_date.split("-")[0] }}</p>
                     <p class="genre">Genres: {{ movie.genres.join(', ') }}</p>
                 </div>
             </div>
         </div>
     </main>
+    <HomePagination />
 </template>
 
 <script setup>
@@ -25,6 +27,7 @@ import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { usePopular } from "../store/popular.js"
 import PreLoader from "../components/PreLoader.vue"
+import HomePagination from "../components/HomePagination.vue";
 const router = useRouter()
 const popularStore = usePopular()
 
@@ -86,7 +89,7 @@ main {
         height: 100%;
         display: grid;
         place-items: center;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 20px;
         padding: 2rem;
 
