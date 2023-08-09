@@ -23,9 +23,11 @@ const previousPage = () => {
         display: flex; 
         align-items: center;
         justify-content: space-around;
+        padding-bottom: 1rem;
 
         button {
             color: white;
+            z-index: 99;
 
             &:hover {
                 color: #ffac78;

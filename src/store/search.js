@@ -38,14 +38,15 @@ export const useSearch = defineStore("searchData", {
             ...movie,
             genres: movie.genre_ids.map((genreId) => genres[genreId]),
         }));
-        console.log(this.searchArray);
+        localStorage.setItem('movies', JSON.stringify(this.moviesWithGenres));
+        console.log(this.moviesWithGenres);
       } catch (e) {
         console.log(e);
       }
     },
     setMovie(movieInput) {
       this.movieInput = movieInput;
-    },
+    }
     // -----trying to get runtime
     // async addMovieRuntime() {
     //   for (id of this.movieId) {
