@@ -1,7 +1,7 @@
 <template>
     <header>
         <div class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48"><mask id="ipSMovie0"><g fill="none" stroke-width="4"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path fill="#000" stroke="#000" stroke-linejoin="round" d="M24 18a3 3 0 1 0 0-6a3 3 0 0 0 0 6Zm0 18a3 3 0 1 0 0-6a3 3 0 0 0 0 6Zm-9-9a3 3 0 1 0 0-6a3 3 0 0 0 0 6Zm18 0a3 3 0 1 0 0-6a3 3 0 0 0 0 6Z"/><path stroke="#fff" stroke-linecap="round" d="M24 44h20"/></g></mask><path fill="#ff722c" d="M0 0h48v48H0z" mask="url(#ipSMovie0)"/></svg>
+            <img src="../assets/cinemax.svg" alt="">
             <h1 class="title">Cinemax</h1>
         </div>
         <nav>
@@ -24,6 +24,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 const searchData = useSearch()
 
+//add theme
 const addLight = () => {
     const element = document.body
     element.classList.toggle("lightmode")
@@ -33,7 +34,7 @@ const addLight = () => {
 const sendData = async () => {
     router.push('/search')
     await searchData.getMovie()
-    searchData.setMovie()
+    searchData.movieInput = ''
 }
 </script>
 
@@ -47,7 +48,11 @@ header {
     padding: 20px;
     gap: 2rem;
 
-    .logo {display: flex; gap: 10px; align-items: center;}
+    .logo {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
 
     .title {
         font-weight: bold;
@@ -90,4 +95,10 @@ header {
         flex-direction: row;
         justify-content: space-around;
     }
-}</style>
+}
+@media screen and (max-width: 300px) {
+    header {
+        align-items: start;
+    }
+}
+</style>

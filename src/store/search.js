@@ -8,13 +8,14 @@ export const useSearch = defineStore("searchData", {
     searchArray: [],
     movieId: null,
     moviesWithGenres: [],
-    isLoading: true
+    isLoading: true,
+    error: false
   }),
   actions: {
     async getMovie() {
       try {
         const res = await axios.get(
-          "https://api.themoviedb.org/3/search/movie",
+          "https://api.themoviedb.org/3/search/multi",
           {
             params: {
               query: this.movieInput,
@@ -27,32 +28,24 @@ export const useSearch = defineStore("searchData", {
         const genres = await popularMovies.fetchGenre() 
         // data from this api request     
         this.searchArray = res.data.results;
+        console.log(this.searchArray);
+
         // ------getting each movie id
         this.movieId = this.searchArray.map(movie => movie.id)
         console.log(this.movieId);
-        // -------catching runtime
-        // const movieruntime = await this.addMovieRuntime()
-        // console.log(movieruntime);
-        //   -------
+
+        //   -------get genres
         this.moviesWithGenres = this.searchArray.map((movie) => ({
             ...movie,
             genres: movie.genre_ids.map((genreId) => genres[genreId]),
         }));
+
+        //store data in localStorage
         localStorage.setItem('movies', JSON.stringify(this.moviesWithGenres));
-        console.log(this.moviesWithGenres);
       } catch (e) {
+        this.error = true
         console.log(e);
       }
-    },
-    setMovie(movieInput) {
-      this.movieInput = movieInput;
     }
-    // -----trying to get runtime
-    // async addMovieRuntime() {
-    //   for (id of this.movieId) {
-    //     const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=ffb2861fdbc1b2981352fc6e6d3e5c8a`)
-    //     console.log(res);
-    //   }
-    // }
-  },
+  }
 });

@@ -1,7 +1,11 @@
 <template>
     <PreLoader v-if="isLoading" />
     <main v-else>
-        <div class="header">
+        <div v-if="searchData.error || (!searchData.moviesWithGenres.length)" class="error">
+            <p>404 Movie not Found</p>
+        </div>
+        <div v-else>
+            <div class="header">
             <h1> Results - {{ searchData.moviesWithGenres.length }}</h1>
         </div>
         <div v-if="searchData.searchArray" class="container">
@@ -10,8 +14,12 @@
                 <img :src="`https://image.tmdb.org/t/p/w500/` + data.poster_path" alt="Movie Image" class="img-fluid">
                 <div class="movie-details">
                     <h1 class="title">{{ data.title }}</h1>
-                    <p class="date"><span>Year: </span>{{ data.release_date.split("-")[0] }}</p>
+                    <h1 class="title" v-if="data.original_name">{{ data.original_name }}</h1>
+                    <p class="date" v-if="data.release_date"><span>Year: </span>{{ data.release_date.split("-")[0] }}</p>
+                    <p class="date" v-if="data.first_air_date"><span>First Air of Series: </span>{{ data.first_air_date }}
+                    </p>
                     <p class="genre">{{ data.genres.join("| ") }}</p>
+                    <p class="movieType">{{ data.media_type }}</p>
                     <p class="overview"><span>Overview: </span>{{ data.overview }}</p>
                     <div class="rating">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 15 15">
@@ -22,6 +30,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 </template>
@@ -41,7 +50,6 @@ onMounted(() => {
 @mixin flexStyles {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
 @mixin gridStyles {
@@ -49,13 +57,16 @@ onMounted(() => {
     place-items: center;
 }
 
+$main-color: #ff722c;
+$main-text: white;
+
 main {
     width: 100%;
     min-height: 100vh;
 
     .clickable {
         text-align: center;
-        color: #ff722c;
+        color: $main-color;
         font-weight: 500;
         animation: fade 2s 0.5s infinite;
     }
@@ -75,7 +86,7 @@ main {
             background-color: #353535;
             padding: 15px;
             font-weight: 700;
-            color: #ff722c;
+            color: $main-color;
         }
 
     }
@@ -83,9 +94,8 @@ main {
     .container {
         min-width: 100%;
         height: 100%;
-        display: grid;
-        place-items: center;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        @include gridStyles;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 20px;
         padding: 2rem;
 
@@ -98,11 +108,14 @@ main {
             position: relative;
             cursor: pointer;
 
-            .rating {display: flex;gap: 10px; align-items: center; color: white;}
+            .rating {
+                gap: 10px;
+                @include flexStyles;
+                color: $main-text;
+            }
 
             .movie-details {
-                display: flex;
-                align-items: center;
+                @include flexStyles;
                 flex-direction: column;
                 text-align: center;
                 padding: 10px;
@@ -110,20 +123,30 @@ main {
 
                 span {
                     font-weight: bold;
-                    color: white;
+                    color: $main-text;
                 }
+
                 .overview {
-                    color: #ff722c;
+                    color: $main-color;
                     text-align: left;
+                    padding: 20px;
                 }
+
                 .title {
-                    color: white;
+                    color: $main-text;
                     font-size: 1.5rem;
                     font-weight: 700;
                 }
 
+                .movieType {
+                    color: $main-text;
+                    text-transform: uppercase;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                }
+
                 .date {
-                    color: #ff722c;
+                    color: $main-color;
                 }
 
                 .genre {
@@ -137,6 +160,22 @@ main {
                 height: auto;
                 object-fit: cover;
             }
+        }
+    }
+}
+
+.error {
+    @include gridStyles();
+    color: red;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    min-height: 50vh;
+} 
+@media screen and (max-width: 300px) {
+    main {
+        .container {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         }
     }
 }

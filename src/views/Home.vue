@@ -41,13 +41,15 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+$main-color: #ff722c;
+$main-text: white;
 main {
     width: 100%;
     min-height: 100vh;
 
     .clickable {
         text-align: center;
-        color: #ff722c;
+        color: $main-color;
         font-weight: 500;
         animation: fade 2s 0.5s infinite;
     }
@@ -79,7 +81,7 @@ main {
             background-color: #353535;
             padding: 15px;
             font-weight: 700;
-            color: #ff722c;
+            color: $main-color;
         }
 
     }
@@ -107,14 +109,14 @@ main {
                 align-items: center;
                 justify-content: center;
                 position: absolute;
-                background-color: white;
+                background-color: $main-text;
                 padding: 20px;
                 border-radius: 50%;
                 width: 20px;
                 height: 20px;
                 top: 10px;
                 right: 20px;
-                color: #b05500;
+                color: $main-color;
                 box-shadow: 0px 1px 20px rgb(35, 35, 35);
                 font-weight: 600;
             }
@@ -134,7 +136,7 @@ main {
                 }
 
                 .date {
-                    color: #ff722c;
+                    color: $main-color;
                 }
 
                 .genre {

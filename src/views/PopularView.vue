@@ -1,6 +1,9 @@
 <template>
     <PreLoader v-if="isLoading" />
     <div class="popularMovies" v-else>
+        <div class="homeBtn">
+            <button @click="router.push('/')">Go Back</button>
+        </div>
         <div class="movie" v-if="movieResult">
             <div class="movie-image">
                 <img :src="`https://image.tmdb.org/t/p/w500/` + movieResult.poster_path" alt="Movie Image">
@@ -33,10 +36,11 @@
 <script setup>
 import PreLoader from '../components/PreLoader.vue';
 import { usePopular } from '../store/popular';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import axios from "axios"
 const route = useRoute()
+const router = useRouter()
 const isLoading = ref(true)
 const { id } = route.params
 const movieResult = ref(null)
@@ -60,17 +64,29 @@ $screen-width-small: 768px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 @mixin gridStyles {
     display: grid;
     place-items: center;
 }
+$main-color: #ff722c;
+$main-text: white;
 
 .popularMovies {
     @include flexStyles;
     min-height: 100vh;
     min-width: 100%;
+
+    .homeBtn {
+        button {
+            background-color: $main-color;
+            color: $main-text;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    }
 
     .movie {
         min-width: 100%;
@@ -93,7 +109,7 @@ $screen-width-small: 768px;
 
         .movie-details {
             padding: 20px 0;
-            color: white;
+            color: $main-text;
             font-size: 1.3rem;
             background-color: #3E3939;
             padding: 20px;
@@ -105,12 +121,12 @@ $screen-width-small: 768px;
             }
 
             .overview {
-                color: #FF7517;
+                color: $main-color;
             }
 
             span {
                 font-weight: 700;
-                color: white;
+                color: $main-text;
             }
 
             p {
@@ -129,7 +145,7 @@ $screen-width-small: 768px;
 
             .video {
                 position: relative;
-                
+
                 iframe {
                     position: fixed;
                     top: 0;

@@ -11,4 +11,5 @@ body {
 .lightmode {
     background-color: #756868;
     color: #f78d1c;
+    transition: all ease-in-out 0.5s;
 }

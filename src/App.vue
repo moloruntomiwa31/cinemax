@@ -50,7 +50,7 @@ onMounted(() => {
   height: 50px;
   z-index: 99;
   background-color: white;
-  border-radius: 50%;
+  border-radius: 10px;
   padding: 10px;
   box-shadow: 0px 1px 5px rgb(0, 0, 0);
 }
