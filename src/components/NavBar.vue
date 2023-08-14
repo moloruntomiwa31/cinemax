@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="logo">
+        <div class="logo" @click="router.push('/')">
             <img src="../assets/cinemax.svg" alt="">
             <h1 class="title">Cinemax</h1>
         </div>
@@ -52,6 +52,7 @@ header {
         display: flex;
         gap: 10px;
         align-items: center;
+        cursor: pointer;
     }
 
     .title {

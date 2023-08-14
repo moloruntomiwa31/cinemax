@@ -102,7 +102,7 @@ main {
         .movie {
             margin: 20px;
             min-height: 100%;
-            min-width: 100%;
+            max-width: 300px;
             border-radius: 10px;
             box-shadow: 0px 1px 20px rgb(35, 35, 35);
             position: relative;
