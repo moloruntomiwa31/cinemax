@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { usePopular } from "./popular";
+import { useMovies } from "./movie";
 
 export const useSearch = defineStore("searchData", {
   state: () => ({
@@ -9,7 +9,7 @@ export const useSearch = defineStore("searchData", {
     movieId: null,
     moviesWithGenres: [],
     isLoading: true,
-    error: false
+    error: false,
   }),
   actions: {
     async getMovie() {
@@ -22,30 +22,29 @@ export const useSearch = defineStore("searchData", {
               api_key: "ffb2861fdbc1b2981352fc6e6d3e5c8a",
             },
           }
-        );  
-        const popularMovies = usePopular()
+        );
+        const movies = useMovies();
         // fetch genre from different store
-        const genres = await popularMovies.fetchGenre() 
-        // data from this api request     
+        const genres = await movies.fetchGenre();
+        // data from this api request
         this.searchArray = res.data.results;
-        console.log(this.searchArray);
-
         // ------getting each movie id
-        this.movieId = this.searchArray.map(movie => movie.id)
-        console.log(this.movieId);
-
+        this.movieId = this.searchArray.map((movie) => movie.id);
         //   -------get genres
         this.moviesWithGenres = this.searchArray.map((movie) => ({
-            ...movie,
-            genres: movie.genre_ids.map((genreId) => genres[genreId]),
+          ...movie,
+          genres: movie.genre_ids.map((genreId) => genres[genreId]),
         }));
 
         //store data in localStorage
-        localStorage.setItem('movies', JSON.stringify(this.moviesWithGenres));
+        localStorage.setItem(
+          "searchedMovies",
+          JSON.stringify(this.moviesWithGenres)
+        );
       } catch (e) {
-        this.error = true
+        this.error = true;
         console.log(e);
       }
-    }
-  }
+    },
+  },
 });

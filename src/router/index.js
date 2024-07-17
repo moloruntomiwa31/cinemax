@@ -10,9 +10,9 @@ const router = createRouter({
             component: Home
         },
         {
-            path: "/movies/popular/:id",
-            name: "popular",
-            component: () => import ("../views/PopularView.vue")
+            path: "/movies/show/:id",
+            name: "show",
+            component: () => import ("../views/ShowView.vue")
         },
         {
             path: "/search",
@@ -26,5 +26,9 @@ const router = createRouter({
         }
     ]
 })
+
+router.afterEach(() => {
+    window.scrollTo({top: 0, behavior: 'smooth'})
+})  
 
 export default router
