@@ -14,7 +14,7 @@ app.use(createPinia());
 // -----storing items in store into LocalStorage
 const savedSearchedMovies = localStorage.getItem("searchedMovies");
 const savedMovies = localStorage.getItem("movies");
-if (savedMovies || savedPopularMovies) {
+if (savedMovies || savedSearchedMovies) {
   useSearch().moviesWithGenres = JSON.parse(savedSearchedMovies);
   useMovies().moviesWithGenres = JSON.parse(savedMovies);
 }
