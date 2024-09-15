@@ -43,7 +43,6 @@ export const useSearch = defineStore("searchData", {
         );
       } catch (e) {
         this.error = true;
-        console.log(e);
       }
     },
   },

@@ -18,13 +18,9 @@
     <div class="popular-movies">
       <div
         v-for="movie in movieStore.moviesWithGenres"
+        :key="movie.id"
         class="movie"
-        @click="
-          router.push({
-            path: `/movies/show/${movie.id}`,
-            query: { type: selectedType },
-          })
-        "
+        @click="navigateToMovie(movie.id)"
       >
         <p class="rating">{{ Math.round(movie.vote_average) }}</p>
         <img
@@ -53,37 +49,40 @@
 
 <script setup>
 import { onMounted, ref, watch, computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useMovies } from "../store/movie.js";
 import PreLoader from "../components/PreLoader.vue";
 import HomePagination from "../components/HomePagination.vue";
 import SelectOption from "../components/SelectOption.vue";
+
 const router = useRouter();
+const route = useRoute();
 const movieStore = useMovies();
-//modifying options
-const selectedOption = ref("popular");
-const selectedType = ref("movie");
+
+const selectedOption = ref(route.query.option || "popular");
+const selectedType = ref(route.query.type || "movie");
+
 const updateMovieOption = (option) => {
   selectedOption.value = option;
-  router.push({
-    query: {
-      ...router.currentRoute.value.query,
-      type: selectedType.value,
-      option: option,
-    },
-  });
+  updateRouteQuery();
 };
+
 const updateType = (type) => {
   selectedType.value = type;
   selectedOption.value = "popular";
+  updateRouteQuery();
+};
+
+const updateRouteQuery = () => {
   router.push({
     query: {
-      ...router.currentRoute.value.query,
+      ...route.query,
       type: selectedType.value,
-      option: "popular",
+      option: selectedOption.value,
     },
   });
 };
+
 const movieOptions = ref(["popular", "top_rated", "upcoming", "now_playing"]);
 const seriesOptions = ref([
   "airing_today",
@@ -91,30 +90,40 @@ const seriesOptions = ref([
   "popular",
   "top_rated",
 ]);
-watch([selectedOption, selectedType], ([newOption, newType]) => {
-  movieStore.getDetails(newType, newOption);
-});
+
 const dynamicOptions = computed(() => {
   return selectedType.value === "tv" ? seriesOptions.value : movieOptions.value;
 });
-// preloads and getDeatails from store
+
+watch([selectedOption, selectedType], ([newOption, newType]) => {
+  movieStore.getDetails(newType, newOption);
+});
+
+watch(route, (newRoute) => {
+  selectedOption.value = newRoute.query.option || "popular";
+  selectedType.value = newRoute.query.type || "movie";
+  movieStore.getDetails(selectedType.value, selectedOption.value);
+});
+
 onMounted(() => {
   setTimeout(() => {
     movieStore.isLoading = false;
   }, 1000);
-  const currentQuery = router.currentRoute.value.query;
-  // Use query parameters if they exist, otherwise default to "movie" and "popular"
-  const initialType = currentQuery.type || "movie";
-  const initialOption = currentQuery.option || "popular";
-  selectedType.value = initialType;
-  selectedOption.value = initialOption;
   movieStore.getDetails(selectedType.value, selectedOption.value);
 });
+
+const navigateToMovie = (id) => {
+  router.push({
+    path: `/movies/show/${id}`,
+    query: { type: selectedType.value },
+  });
+};
 </script>
 
 <style lang="scss" scoped>
 $main-color: #ff722c;
 $main-text: white;
+
 main {
   width: 100%;
   min-height: 100vh;
@@ -142,23 +151,6 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    // position: relative;
-    // border: 1px solid gray;
-    // margin: 30px 0;
-    // z-index: 50;
-
-    // .content {
-    //     position: absolute;
-    //     top: 50%;
-    //     left: 50%;
-    //     transform: translate(-50%, -50%);
-    //     border-radius: 1rem;
-    //     background-color: #353535;
-    //     padding: 15px;
-    //     font-weight: 700;
-    //     color: $main-color;
-    // }
   }
 
   .popular-movies {

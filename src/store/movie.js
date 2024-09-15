@@ -28,7 +28,6 @@ export const useMovies = defineStore("movies", {
         //store data in localStorage
         localStorage.setItem("movies", JSON.stringify(this.moviesWithGenres));
       } catch (e) {
-        console.log(e);
       }
     },
     // fetch genre
