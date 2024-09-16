@@ -127,12 +127,18 @@ $main-text: white;
 main {
   width: 100%;
   min-height: 100vh;
+  padding: 1rem;
 
   .clickable {
     text-align: center;
     color: $main-color;
     font-weight: 500;
     animation: fade 2s 0.5s infinite;
+    font-size: 1.2rem;
+
+    @media (max-width: 600px) {
+      font-size: 1rem;
+    }
   }
 
   @keyframes fade {
@@ -151,21 +157,29 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
   .popular-movies {
-    min-width: 100%;
-    height: 100%;
+    width: 100%;
     display: grid;
-    place-items: center;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding: 2rem;
 
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 1rem;
+    }
+
     .movie {
-      margin: 20px;
-      min-height: 100%;
-      min-width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
       border-radius: 10px;
       box-shadow: 0px 1px 20px rgb(35, 35, 35);
       position: relative;
@@ -186,28 +200,51 @@ main {
         color: $main-color;
         box-shadow: 0px 1px 20px rgb(35, 35, 35);
         font-weight: 600;
+
+        @media (max-width: 600px) {
+          padding: 12px;
+          width: 15px;
+          height: 15px;
+          top: 5px;
+          right: 10px;
+        }
       }
 
       .movie-details {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        flex-direction: column-reverse;
         text-align: center;
         padding: 10px;
         gap: 1rem;
+        flex-grow: 1;
 
         .title {
           color: white;
           font-size: 1.5rem;
           font-weight: 700;
+
+          @media (max-width: 600px) {
+            font-size: 1.2rem;
+          }
         }
 
         .date {
           color: $main-color;
+          font-size: 1rem;
+
+          @media (max-width: 600px) {
+            font-size: 0.8rem;
+          }
         }
 
         .genre {
           color: rgb(196, 192, 192);
+          font-size: 1rem;
+
+          @media (max-width: 600px) {
+            font-size: 0.8rem;
+          }
         }
       }
 
